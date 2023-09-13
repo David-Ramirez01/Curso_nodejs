@@ -28,7 +28,7 @@ const Main = async () => {
         break;
       case "5":
         const ids = await MonstrarListaCheck(tareas.listado );
-        tareas.ToggleCompletadas( ids );
+        tareas.ToggleCompletadas(ids);
         //console.log({ids});
         break;
       case '6':

@@ -43,7 +43,7 @@ export class Tareas {
             const  { descripcion , completado } = tar;
             if(completado !== null){
                 cont +=1;
-                console.log(`${`${cont+`.`}`.green} ${descripcion} :: ${`Completado`.green}`);
+                console.log(`${`${cont+`.`}`.green} ${descripcion} :: ${`${completado}`.green}`);
             }
         })
     }
@@ -63,5 +63,22 @@ export class Tareas {
         if(this._lista[id]){
             delete this._lista[id];
         }
+    }
+
+    ToggleCompletadas(ids = [] ) {
+        ids.forEach( id => {
+
+            const tr = this._lista[id];
+            if( !tr.completado ){
+                tr.completado = new Date().toISOString()
+            }
+        });
+
+        this.listado.forEach( tr => {
+            if (!ids.includes(tr.id) ) {
+                const tarea = this._lista[tr.id];
+                tarea.completado = null;
+            }
+        })
     }
 }
