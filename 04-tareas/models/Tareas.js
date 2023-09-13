@@ -41,7 +41,7 @@ export class Tareas {
         this.listado.forEach((tar,i) => {
             const idx = `${i+1}`.green;
             const  { descripcion , completado } = tar;
-            if(completado == true){
+            if(completado !== null){
                 console.log(`${idx}. ${descripcion} :: ${`Completado`.green}`);
             }
         })
