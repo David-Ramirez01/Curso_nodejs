@@ -109,6 +109,29 @@ export const ListaBorrarTarea = async(tareas = [] ) => {
     return id;
 }
 
+export const MonstrarListaCheck = async(tareas = [] ) => {
+    const choices = tareas.map( (tarea , id ) => {
+        const idx = `${id+1}`;
+        return {
+            value:tarea.id,
+            name:`${`${idx}.`.green} ${tarea.descripcion}`,
+            checked: (tarea.completado)? true : false
+        }
+    });
+
+
+    const preguntas = [
+        {
+            type:'checkbox',
+            name:'ids',
+            message:'Seleccione',
+            choices
+        }
+    ];
+    const { ids } = await inquirer.prompt(preguntas);
+    return ids;
+}
+
 export const confirmar = async (message) =>{
     const pregunta = [
         {

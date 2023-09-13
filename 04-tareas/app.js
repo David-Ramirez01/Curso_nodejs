@@ -1,6 +1,6 @@
 var colors = import("colors");
 import { Guardartext, LeerArchivo } from "./helper/guardar.js";
-import { InqMenu, Pausa ,LeerInput, ListaBorrarTarea, confirmar } from "./helper/inquirer.js";
+import { InqMenu, Pausa ,LeerInput, ListaBorrarTarea, confirmar , MonstrarListaCheck} from "./helper/inquirer.js";
 import { Tareas } from "./models/Tareas.js";
 
 const Main = async () => { 
@@ -27,6 +27,9 @@ const Main = async () => {
         tareas.TareasPendiente();
         break;
       case "5":
+        const ids = await MonstrarListaCheck(tareas.listado );
+        tareas.ToggleCompletadas( ids );
+        //console.log({ids});
         break;
       case '6':
         const ident = await ListaBorrarTarea( tareas.listado);
