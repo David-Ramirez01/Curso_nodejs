@@ -82,3 +82,41 @@ export const LeerInput = async (message) => {
     const {desc} = await inquirer.prompt(pregunta);
     return desc;
 }
+
+export const ListaBorrarTarea = async(tareas = [] ) => {
+    const choices = tareas.map( (tarea , id ) => {
+        const idx = `${id+1}`;
+        return {
+            value:tarea.id,
+            name:`${`${idx}.`.green} ${tarea.descripcion}`
+        }
+    });
+
+    choices.unshift({
+        value:'0',
+        name:`${`0.`.green} Cancelar`
+    })
+
+    const preguntas = [
+        {
+            type:'list',
+            name:'id',
+            message:'Borrar',
+            choices
+        }
+    ];
+    const { id } = await inquirer.prompt(preguntas);
+    return id;
+}
+
+export const confirmar = async (message) =>{
+    const pregunta = [
+        {
+            type:'confirm',
+            name:'ok',
+            message
+        }
+    ];
+    const { ok } = await inquirer.prompt(pregunta);
+    return ok;
+}

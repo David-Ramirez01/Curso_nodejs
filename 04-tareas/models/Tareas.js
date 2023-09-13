@@ -30,30 +30,38 @@ export class Tareas {
     Lista_Tareas(){
         console.log();
         this.listado.forEach( (tar,i) => {
-            const idx = `${i+1}`.green;
+            const idx = `${i+1}`;
             const { descripcion , completado } = tar;
             const estatus = (completado)?'completado'.green:'pendiente'.red;
-            console.log(`${idx}. ${descripcion} :: ${estatus}`);
+            console.log(`${`${idx+`.`}`.green} ${descripcion} :: ${estatus}`);
         })
     }
 
     TareasComletas(){
-        this.listado.forEach((tar,i) => {
-            const idx = `${i+1}`.green;
+        this.listado.forEach(tar => {
+            let cont = 0;
             const  { descripcion , completado } = tar;
             if(completado !== null){
-                console.log(`${idx}. ${descripcion} :: ${`Completado`.green}`);
+                cont +=1;
+                console.log(`${`${cont+`.`}`.green} ${descripcion} :: ${`Completado`.green}`);
             }
         })
     }
 
     TareasPendiente(){
-        this.listado.forEach((tar,i) => {
-            const idx = `${i+1}`.green;
+        let cont = 0;
+        this.listado.forEach(tar => {
             const  { descripcion , completado } = tar;
             if(completado == null){
-                console.log(`${idx}. ${descripcion} :: ${`Pendiente`.red}`);
+                cont += 1;
+                console.log(`${`${cont+`.`}`.green} ${descripcion} :: ${`Pendiente`.red}`);
             }
         })
+    }
+
+    BorrarTarea(id = ''){
+        if(this._lista[id]){
+            delete this._lista[id];
+        }
     }
 }
