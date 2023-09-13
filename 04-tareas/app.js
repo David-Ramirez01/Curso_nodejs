@@ -1,25 +1,30 @@
 var colors = import("colors");
-import { Guardartext } from "./helper/guardar.js";
+import { Guardartext, LeerArchivo } from "./helper/guardar.js";
 import { InqMenu, Pausa ,LeerInput } from "./helper/inquirer.js";
 import { Tareas } from "./models/Tareas.js";
 
 const Main = async () => { 
   let opt = "";
   const tareas = new Tareas();
+  const tareasdb = LeerArchivo();
+  if (tareasdb ) {
+    tareas.Cargar_Tareas(tareasdb);
+  }
   do {
     opt = await InqMenu();
     switch (opt) {
       case "1":
         const dec = await LeerInput('Tarea por hacer: ');
         tareas.Crear_Tarea(dec);
-        Guardartext(tareas.listado);
         break;
       case "2":
-        console.log(tareas.listado);
+        tareas.Lista_Tareas();
         break;
       case "3":
+        tareas.TareasComletas();
         break;
       case "4":
+        tareas.TareasPendiente();
         break;
       case "5":
         break;
@@ -27,7 +32,7 @@ const Main = async () => {
         break;
     }
 
-    
+    Guardartext(tareas.listado);    
 
     await Pausa();
   } while (opt !== "0");
