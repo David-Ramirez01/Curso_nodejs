@@ -1,9 +1,8 @@
-import t from "./helpers/inquirerCustom"
+import {LeerInput} from "./helpers/inquirerCustom.js"
 
 
 const main = async () =>{
-    const text = await t.LeerInput('hola: ');
-
+    const text = await LeerInput('hola: ');
     console.log(text);
 }
 

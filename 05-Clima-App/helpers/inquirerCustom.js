@@ -1,5 +1,5 @@
-var colors = require('colors');
-import { inquirer } from 'inquirer';
+import inquirer from 'inquirer';
+var colors = import('colors');
 
 
 const MenuOPT = [
@@ -64,7 +64,7 @@ const Pausa = async () => {
     return pu;
 }
 
-const LeerInput = async (message) => {
+export const LeerInput = async (message) => {
     const pregunta = [
         {
             type: 'input',
@@ -141,8 +141,4 @@ const confirmar = async (message) =>{
     ];
     const { ok } = await inquirer.prompt(pregunta);
     return ok;
-}
-
-module.exports ={
-    LeerInput,
 }
