@@ -16,6 +16,14 @@ export class Busquedas{
         }
     }
 
+    get ParametrosCLi(){
+        return{
+            'appid':process.env.OPENE_WEATHER_KEY,
+            'units':'metric',
+            'language': 'es'
+        }
+    }
+
     async ciudad(Lugar){
         try {
             const inst = axios.create({
@@ -23,13 +31,36 @@ export class Busquedas{
                 params : this.ParametrosMap
             });
             const resp = await inst.get();
-            console.log(resp.data);
-
-            return [];
+            return resp.data.features.map( lugar =>({
+                id:lugar.id,
+                nombre:lugar.place_name_es,
+                lng:lugar.center[0],
+                lat:lugar.center[1],
+            }))
         } catch (error) {
             console.log(error);
             return [];
         }
 
+    }
+
+    async CLima(lat , lon){
+        try {
+            const inst = axios.create({
+                baseURL:`https://api.openweathermap.org/data/2.5/weather?appid=0db9096f8e34be50cde82e5e89cb156e`,
+                params: {...this.ParametrosCLi, lat,lon}
+            })
+            const resp = await inst.get();
+            const {weather , main}  = resp.data;
+            console.log(weather);
+            return{
+                desc: weather[0].description,
+                temp: main.temp,
+                max:main.temp_max,
+                min:main.temp_min,
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 }

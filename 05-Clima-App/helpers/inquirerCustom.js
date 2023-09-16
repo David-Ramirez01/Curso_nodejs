@@ -67,12 +67,12 @@ export const LeerInput = async (message) => {
     return desc;
 }
 
-export const ListaBorrarTarea = async(tareas = [] ) => {
-    const choices = tareas.map( (tarea , id ) => {
+export const ListaLugares = async(lugares = [] ) => {
+    const choices = lugares.map( (lugar , id ) => {
         const idx = `${id+1}`;
         return {
-            value:tarea.id,
-            name:`${`${idx}.`.green} ${tarea.descripcion}`
+            value:lugar.id,
+            name:`${`${idx}.`.green} ${lugar.nombre}`
         }
     });
 
@@ -85,13 +85,16 @@ export const ListaBorrarTarea = async(tareas = [] ) => {
         {
             type:'list',
             name:'id',
-            message:'Borrar',
+            message:'Seleccione el lugar:',
             choices
         }
     ];
     const { id } = await inquirer.prompt(preguntas);
     return id;
 }
+
+
+
 export const MonstrarListaCheck = async(tareas = [] ) => {
     const choices = tareas.map( (tarea , id ) => {
         const idx = `${id+1}`;
