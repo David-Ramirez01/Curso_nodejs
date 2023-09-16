@@ -9,27 +9,11 @@ const MenuOPT = [
         message: 'Que dezea realizar',
         choices: [{
             value: '1',
-            name:`1. Crear tarea`
+            name:`1. Buscar ciudad`
         },
         {
             value: '2',
-            name:`2. Lista de tarea`
-        },
-        {
-            value: '3',
-            name:`3. Tareas completadas`
-        },
-        {
-            value: '4',
-            name:`4. Tareas Pendientes`
-        },
-        {
-            value: '5',
-            name:`5. Completar tares(s)`
-        },
-        {
-            value: '6',
-            name:`6. Borrar tarea(s)`
+            name:`2. Historial`
         },
         {
             value: '0',
@@ -39,17 +23,17 @@ const MenuOPT = [
     }
 ];
 
-const IMenu = async () =>{
+export const IMenu = async () =>{
     console.clear();
     
-    console.log('======================='.white);
-    console.log(' Selecione una opcion '.white);
-    console.log('=======================\n'.white);
+    console.log('=======================');
+    console.log(' Selecione una opcion ');
+    console.log('=======================\n');
     const { Option } = await inquirer.prompt(MenuOPT);
     return Option;
 }
 
-const Pausa = async () => {
+export const Pausa = async () => {
 
     const pq = [
         {
@@ -83,7 +67,7 @@ export const LeerInput = async (message) => {
     return desc;
 }
 
-const ListaBorrarTarea = async(tareas = [] ) => {
+export const ListaBorrarTarea = async(tareas = [] ) => {
     const choices = tareas.map( (tarea , id ) => {
         const idx = `${id+1}`;
         return {
@@ -108,7 +92,7 @@ const ListaBorrarTarea = async(tareas = [] ) => {
     const { id } = await inquirer.prompt(preguntas);
     return id;
 }
-const MonstrarListaCheck = async(tareas = [] ) => {
+export const MonstrarListaCheck = async(tareas = [] ) => {
     const choices = tareas.map( (tarea , id ) => {
         const idx = `${id+1}`;
         return {
@@ -131,7 +115,7 @@ const MonstrarListaCheck = async(tareas = [] ) => {
     return ids;
 }
 
-const confirmar = async (message) =>{
+export const confirmar = async (message) =>{
     const pregunta = [
         {
             type:'confirm',
