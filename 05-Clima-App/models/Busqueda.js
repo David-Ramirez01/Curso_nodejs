@@ -2,11 +2,11 @@ import fs from 'fs';
 import axios, { Axios } from "axios";
 
 export class Busquedas{
-    historal = ['mexico','Barranquilla'];
+    historal = [];
     bdPAth = './db/database.json';
 
     constructor(){
-        //this.LeerDB();
+        this.LeerDB();
     }
 
     get ParametrosMap(){
@@ -65,15 +65,29 @@ export class Busquedas{
         }
     }
 
-    async addHistorial( lugar = ''){
-        this.historal.unshift(lugar);
+    addHistorial( lugar = ''){
+        if (this.historal.includes(lugar.toLowerCase())) {
+            return;
+        }
+        this.historal.unshift(lugar.toLowerCase());
+        this.GuardarDB();
+
     }
 
     GuardarDB(){
-        
-        //fs.writeFileSync(this.bdPAth , JSON.stringify(payload));
+        const payload = {
+            history:this.historal
+        }
+        fs.writeFileSync(this.bdPAth , JSON.stringify(payload));
     }
 
     LeerDB(){
+        if(!fs.existsSync(this.bdPAth)){
+            return;
+        }
+    
+        const info = fs.readFileSync(this.bdPAth, { encoding: 'utf-8'});
+        const data = JSON.parse(info);
+        this.historal=data.history;
     }
 }

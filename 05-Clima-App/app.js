@@ -15,7 +15,7 @@ const main = async () =>{
                 const selecid = await ListaLugares(lugares);
                 if (selecid === '0') continue;
                 const LugarSel = lugares.find( l => l.id = selecid);
-                await Buscar.addHistorial( LugarSel.nambre );
+                Buscar.addHistorial( LugarSel.nombre );
                 const ClimaLu = await Buscar.CLima( LugarSel.lat , LugarSel.lng);
                 console.clear();
                 console.log('\nInformacion de la Ciudad\n'.green);
@@ -27,11 +27,11 @@ const main = async () =>{
                 console.log('Maxima ',ClimaLu.max);
                 console.log('Como esta el clima: ',ClimaLu.desc)
                 break;
-            case 2:
-                Busquedas.historal.forEach( (lugar , id) => {
+            case '2':
+                Buscar.historal.forEach( (lugar , id) => {
                     const idx = `${id+1}.`.green;
                     console.log(`${idx} ${lugar}`);
-                })
+                });
 
                 break;
         }
