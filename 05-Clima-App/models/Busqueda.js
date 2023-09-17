@@ -1,11 +1,12 @@
+import fs from 'fs';
 import axios, { Axios } from "axios";
 
-
 export class Busquedas{
-    historal = []
+    historal = ['mexico','Barranquilla'];
+    bdPAth = './db/database.json';
 
     constructor(){
-
+        //this.LeerDB();
     }
 
     get ParametrosMap(){
@@ -18,9 +19,9 @@ export class Busquedas{
 
     get ParametrosCLi(){
         return{
-            'appid':process.env.OPENE_WEATHER_KEY,
+            'appid':`0db9096f8e34be50cde82e5e89cb156e`,
             'units':'metric',
-            'language': 'es'
+            'lang': 'sp',
         }
     }
 
@@ -47,12 +48,12 @@ export class Busquedas{
     async CLima(lat , lon){
         try {
             const inst = axios.create({
-                baseURL:`https://api.openweathermap.org/data/2.5/weather?appid=0db9096f8e34be50cde82e5e89cb156e`,
-                params: {...this.ParametrosCLi, lat,lon}
+                baseURL:`https://api.openweathermap.org/data/2.5/weather?`,
+                params: {lat,lon,...this.ParametrosCLi}
             })
             const resp = await inst.get();
             const {weather , main}  = resp.data;
-            console.log(weather);
+            console.log(main);
             return{
                 desc: weather[0].description,
                 temp: main.temp,
@@ -62,5 +63,17 @@ export class Busquedas{
         } catch (error) {
             console.log(error);
         }
+    }
+
+    async addHistorial( lugar = ''){
+        this.historal.unshift(lugar);
+    }
+
+    GuardarDB(){
+        
+        //fs.writeFileSync(this.bdPAth , JSON.stringify(payload));
+    }
+
+    LeerDB(){
     }
 }
