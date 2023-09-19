@@ -1,5 +1,5 @@
 import fs from 'fs';
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 export class Busquedas{
     historal = [];
